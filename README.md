@@ -14,62 +14,7 @@ aufgebaut.
 
 ## Installation auf dem Raspberry Pi (via GitHub)
 
-Zuerst dieses Verzeichnis als eigenes Repo auf GitHub veröffentlichen
-(`git init && git add -A && git commit -m "initial" && git remote add
-origin https://github.com/<dein-user>/geofencecot.git && git push -u
-origin main`). Ersetze `<dein-user>` in den Befehlen unten durch deinen
-GitHub-Benutzernamen.
-
-**Auf Raspberry Pi OS / AryaOS (Debian-basiert) ist Option B der
-empfohlene Weg**, siehe PEP-668-Hinweis unten.
-
-### Option A — pip direkt von GitHub
-
-Auf dem Pi, ohne vorheriges Klonen:
-
-```sh
-python3 -m pip install "git+https://github.com/<dein-user>/geofencecot.git"
-```
-
-Oder mit Klonen (z. B. wenn du die Config-Beispiele/Service-Datei brauchst):
-
-```sh
-git clone https://github.com/<dein-user>/geofencecot.git
-cd geofencecot
-python3 -m pip install .
-```
-
-Für Änderungen am Code direkt auf dem Pi eignet sich der editable-Modus:
-
-```sh
-python3 -m pip install -e .
-```
-
-> **Hinweis (PEP 668):** Auf Debian-basierten Systemen (Raspberry Pi
-> OS, AryaOS ab Bookworm) verweigert `pip` standardmäßig eine
-> systemweite Installation mit dem Fehler `externally-managed-environment`,
-> um die von `apt` verwaltete Python-Umgebung zu schützen. Optionen:
-> - `--break-system-packages` anhängen (schnell, aber pip greift direkt
->   ins System-Python ein):
->   `python3 -m pip install --break-system-packages "git+https://github.com/<dein-user>/geofencecot.git"`
-> - Eigene virtuelle Umgebung nutzen (`python3 -m venv ...`) — dann muss
->   `ExecStart` im systemd-Service auf den venv-Pfad zeigen statt auf
->   `/usr/bin/geofencecot`.
-> - Oder gleich **Option B** (Debian-Paket) nehmen, die genau für
->   diesen Fall gedacht ist und mit `apt` zusammenarbeitet statt
->   dagegen.
-
-Danach manuell starten:
-
-```sh
-geofencecot -c config.ini
-```
-
-oder per Umgebungsvariablen/Config über den mitgelieferten systemd-Service
-(`debian/geofencecot.service`, `debian/geofencecot.conf` nach
-`/etc/default/geofencecot` kopieren).
-
-### Option B — Debian-Paket (.deb) aus den GitHub Releases (wie bei lincot)
+### Debian-Paket (.deb) aus den GitHub Releases (wie bei lincot)
 
 Der mitgelieferte Workflow `.github/workflows/ci.yml` baut bei jedem
 Git-Tag (`v1.0.0` z. B.) automatisch ein `.deb`-Paket (`make package`,
@@ -82,7 +27,7 @@ geofencecot selbst:
 ```sh
 wget https://github.com/snstac/pytak/releases/latest/download/pytak_latest_all.deb
 sudo apt install -f ./pytak_latest_all.deb
-wget https://github.com/<dein-user>/geofencecot/releases/latest/download/python3-geofencecot_latest_all.deb
+wget https://github.com/MaxtheMaker414/geofencecot/releases/latest/download/python3-geofencecot_latest_all.deb
 sudo apt install -f ./python3-geofencecot_latest_all.deb
 ```
 
