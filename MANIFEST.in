@@ -1,0 +1,2 @@
+include README.md LICENSE example-config.ini src/geofencecot/VERSION
+graft src
